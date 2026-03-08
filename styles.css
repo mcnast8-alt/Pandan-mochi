@@ -180,6 +180,22 @@ body {
     background-color: #333;
 }
 
+.download-button.tertiary {
+    background-color: transparent;
+    border: 1px solid #c2c0b7;
+    color: #333;
+}
+
+.download-button.tertiary:hover {
+    /* Match secondary button hover background color */
+    background-color: #D8D6CE;
+    border-color: #979386;
+}
+
+.download-button.tertiary:active {
+    background-color: #f2f1ed;
+}
+
 /* Fixed label at the top that identifies this as the HTML version */
 .page-label {
     position: fixed;
