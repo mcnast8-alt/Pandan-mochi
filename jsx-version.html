@@ -24,13 +24,20 @@
 
         // Same card UI, written as a JSX component (HTML-like syntax inside JavaScript)
         // This component is reusable - we can create multiple cards by passing different data
-        function PricingCard({ title, price, includesText, features, buttonText, buttonVariant }) {
+        // priceAmount and pricePeriod match the span structure used in the HTML version
+        function PricingCard({ title, priceAmount, pricePeriod, includesText, features, buttonText, buttonVariant }) {
             return (
                 // JSX uses "className" instead of "class" because "class" is a reserved word in JavaScript
                 <div className="card">
                     {/* Curly braces { } let you insert JavaScript expressions into JSX */}
                     <h1 className="card-title">{title}</h1>
-                    <p className="card-price">{price}</p>
+                    <p className="card-price">
+                        <span className="card-price-amount">{priceAmount}</span>
+                        {/* Only render the period if one is provided (e.g. "/mo.") */}
+                        {pricePeriod && (
+                            <span className="card-price-period">{pricePeriod}</span>
+                        )}
+                    </p>
                     <div className="card-content">
                         <p className="includes-text">{includesText}</p>
                         <ul className="features-list">
@@ -53,9 +60,11 @@
         function App() {
             // In JSX, we separate DATA from PRESENTATION
             // These objects hold all the content for each pricing card
+            // priceAmount / pricePeriod mirror the HTML structure (amount + optional "/mo.")
             const hobbyPlan = {
                 title: 'Hobby',
-                price: 'Free',
+                priceAmount: 'Free',
+                pricePeriod: null,
                 includesText: 'Includes:',
                 features: [
                     'No credit card required',
@@ -68,7 +77,8 @@
             };
             const proPlan = {
                 title: 'Pro',
-                price: '$20/mo.',
+                priceAmount: '$20',
+                pricePeriod: '/mo.',
                 includesText: 'Everything in Hobby, plus:',
                 features: [
                     'Extended limits on Agent',
@@ -81,7 +91,8 @@
             };
             const communityPlan = {
                 title: 'Community',
-                price: '$0/mo.',
+                priceAmount: '$0',
+                pricePeriod: '/mo.',
                 includesText: 'Includes:',
                 features: [
                     'No credit card required',
